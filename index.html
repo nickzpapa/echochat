@@ -17,21 +17,19 @@
 	var socket = io();
 
 	//send message
-	$('#submitm').submit(function(){
+	$('#submitm').submit(function () {
 		socket.emit('chat message', $('#m').val());
 		$('#m').val('');
 		return false;
 	});
 	//receive message
-	socket.on('chat message', function(msg){
+	socket.on('chat message', function (msg) {
 		$('#messages').append(msg);
-		socket.on('message sent', function(){
-			$('document').scrollTop( $('#messages').height()+$('#messages').height());
+		socket.on('message sent', function () {
+			$(document).scrollTop( $('#messages').height()+$('#messages').height());
 		});
 		return false;
 	});
-	//user is typing
-	$()
 </script>
 </body>
 </html>
