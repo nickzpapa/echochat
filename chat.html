@@ -5,7 +5,8 @@
     <title> echochat </title>
   </head>
   
-<body style="font: 18px Helvetica; background-color:black;">
+
+<body style="font: 18px Serif; background-color:black;">
 	<div id="messages" style="bottom: 12px; margin-bottom:40px; margin-left:5px; margin-right:1%; width:99%; word-wrap: break-word;">
 	</div>
 	<form id="submitm" action="" style="position: fixed; bottom: 10px; margin-left: 5px; margin-right:1%; width:100%;">
@@ -15,7 +16,6 @@
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
 	var socket = io('/chat');
-
 	//send message
 	$('#submitm').submit(function () {
 		socket.emit('chat message', $('#m').val());

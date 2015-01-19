@@ -6,7 +6,7 @@
 
 <body>
 
-	<form id="userform" action="">
+	<form id="userform" action="/chat">
 		Pick a Username: <input id="name"/> <br>
 		Pick a font color:
 		<select id="fontc" style="color:black;">
@@ -25,7 +25,7 @@
 			<option value="darkblue" style="color:darkblue;">dark blue</option>
 		</select><br>
 		Pick a text background color:
-		<select id="backc" style="color:white;" value="white">
+		<select id="backc" style="color:black;" value="white">
 			<option value="white" selected="selected" style="color:white;">white</option>
 			<option value="black" style="color:black;">black</option>
 			<option value="red" style="color:red;">red</option>
@@ -41,33 +41,27 @@
 			<option value="darkblue" style="color:darkblue;">dark blue</option>
 		</select><br>
 
-		<button id="submit">lets go</button>
+		<button id="submit" action="">lets go</button>
 	</form>
 
 	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 	<script>
-
 		var socket = io('/newuser');
 		
 		$('#userform').submit(function () {
 			if($('#name').val() == "" ){
-				alert($('#name').val());
+				alert("Enter a name or something");
 				return false;
 			}
 			
 			socket.emit('new user', 
 				'{' +
-					'"username" : "' + ($('#name').val()) + '",'
+				 '"username" : "' + ($('#name').val()) + '",'
 				+ 	'"font": "'	+ $('#fontc').val() + '",'
 				+ 	'"backgr" :"'	+ $('#backc').val() + '"'
 				+ '}'
 			);			
-		});
-		socket.on('get chat', function (url) {
-			alert(document.URL + url);
-			console.log(url);
-			window.location = window.location.href + url;
 		});
 
 	</script>
