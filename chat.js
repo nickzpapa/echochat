@@ -28,7 +28,10 @@ var users = {};
 var names = [""];
 
 function getId(s) {
-	return String(s.handshake["headers"].cookie).split(';')[1].substring(17).split('.')[0];
+	s = String(String(s.handshake["headers"].cookie).split(';')[1]);
+	s = s.substring(17).split('.')[0];
+	console.log("parsed id : " + s);
+	return s;
 }
 
 
@@ -38,9 +41,9 @@ app.get('/', function (request, response) {
 	console.log("getting index:" + request.sessionID);	
 
 	var user = {
-		username	: "" ,
-		font 		: "" ,
-		backgr 		: ""
+		username	: null ,
+		font 		: null ,
+		backgr 		: null
 	}
 
 	if(users[id] != null) {
@@ -70,7 +73,9 @@ app.get('/chat', function (request, response) {
 	}
 });
 
-
+io.on('connection', function (socket) {
+	console.log('user has connected');
+});
 
 var userspace = io.of('/newuser');
 userspace.on('connection', function (socket) {
@@ -96,6 +101,8 @@ var chat = io.of('/chat');
 chat.on('connection', function (socket){
 	var id = getId(socket);
 	var user = users[id];
+
+	console.log(id + ' ' + user.username + ' ' + user.font + user.backgr);
 
 	if (user == null || user.username==null || user.font==null || user.backgr==null){
 		chat.emit('whoops', 'You have no username.');
