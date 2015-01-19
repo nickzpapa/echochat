@@ -1,7 +1,6 @@
 
 // setting up express with sessions
-var connect = require('connect')
-	, express = require('express')
+var express = require('express')
 	, app = express();
 
 var CookieParser = require('cookie-parser')
